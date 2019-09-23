@@ -22,7 +22,7 @@ telegraf.start((ctx, next) => {
     // Prevent duplicates by removing it first
     // If duplicate: messages will be sent multiple times to the same person
     db.get('chats')
-        .remove(chatId => chatId !== ctx.chat.id)
+        .remove(chatId => chatId === ctx.chat.id)
         .write()
 
     db.get('chats')
@@ -38,7 +38,7 @@ telegraf.start((ctx, next) => {
 
 telegraf.command('stop', ctx => {
     db.get('chats')
-        .remove(chatId => chatId !== ctx.chat.id)
+        .remove(chatId => chatId === ctx.chat.id)
         .write()
 
     ctx.reply('You will not receive status updates anymore.')
